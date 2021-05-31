@@ -1,15 +1,17 @@
 import MySQLdb
 from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
-import yaml
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
-db = yaml.load(open('db.yaml'))
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
+app.config['MYSQL_HOST'] = os.environ.get("MYSQL_HOST")
+app.config['MYSQL_USER'] = os.environ.get("MYSQL_USER")
+app.config['MYSQL_PASSWORD'] = os.environ.get("MYSQL_PASSWORD")
+app.config['MYSQL_DB'] = os.environ.get("MYSQL_DB")
 app.config['JSON_SORT_KEYS'] = False
 
 mysql = MySQL(app)
@@ -18,7 +20,7 @@ mysql = MySQL(app)
 @app.route('/api/students/', methods=['POST', 'GET'])
 def students():
     if request.method == 'POST':
-        request_data = request.form
+        request_data = request.get_json()
         student_id = int(request_data['student_id'])
         student_name = request_data['student_name']
         email = request_data['email']

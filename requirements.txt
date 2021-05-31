@@ -1,5 +1,5 @@
 flask
 flask-mysqldb
-pyyaml
 Werkzeug
 mysqlclient
+python-dotenv
