@@ -13,6 +13,11 @@ mysql = configure_database(app)
 student_db = Students(mysql)
 
 
+@app.before_first_request
+def create_table():
+    student_db.create_table()
+
+
 @app.route('/api/students/', methods=['POST', 'GET'])
 def students():
     if request.method == 'POST':
@@ -29,7 +34,3 @@ def students():
 def get_student_details(student_id):
     response = student_db.get_individual_student(student_id)
     return jsonify(response)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
