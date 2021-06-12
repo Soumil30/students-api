@@ -1,5 +1,5 @@
-flask
-flask-mysqldb
-Werkzeug
-mysqlclient
-python-dotenv
+flask==2.0.1
+flask-mysqldb==0.2.0
+Werkzeug==2.0.1
+mysqlclient==2.0.3
+python-dotenv==0.17.1
